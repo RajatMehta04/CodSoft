@@ -1,14 +1,22 @@
 #include <iostream>
 #include <cstdlib>
+#include <limits>
 using namespace std;
 
 void clearScreen(){
-        #ifdef _WIN32
-            system("cls"); 
-        #else
-            system("clear"); 
-        #endif
-    }
+    #ifdef _WIN32
+        system("cls"); 
+    #else
+        system("clear"); 
+    #endif
+}
+
+void waitForEnter() {
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear buffer
+    cout << "Press Enter to Continue...";
+    cin.get(); // Wait for Enter
+}
+
 
 class Tic_Tac_Toe{
     public:
@@ -95,6 +103,7 @@ class Tic_Tac_Toe{
             clearScreen();
             display();
             if (checkWin()){
+                waitForEnter();
                 return;
             }
         }
@@ -114,6 +123,7 @@ int main() {
         cout << "Choice:- ";
         cin>> choice;
         if(choice){
+            clearScreen();
             TTT.resetBoard();
             TTT.playGame();
         }
